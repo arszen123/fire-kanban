@@ -1,0 +1,56 @@
+<div *ngIf="(board$ | async) as board">
+    <div class="container-wrapper">
+        <div class="container">
+            <h2>To do</h2>
+
+            <mat-card
+                id="cdk-drop-list-todo"
+                cdkDropList
+                #todoList="cdkDropList"
+                [cdkDropListData]="board.todo"
+                [cdkDropListConnectedTo]="[inProgressList, doneList]"
+                class="list"
+                (cdkDropListDropped)="drop('todo', $event)">
+                <p class="empty-label" *ngIf="board.todo.length === 0">Empty list</p>
+                <app-task *ngFor="let task of board.todo; let index = index" [task]="task" (update)="updateTask('todo', index, $event)" cdkDrag></app-task>
+            </mat-card>
+        </div>
+
+        <div class="container">
+            <h2>In progress</h2>
+
+            <mat-card
+                id="cdk-drop-list-inProgress"
+                cdkDropList
+                #inProgressList="cdkDropList"
+                [cdkDropListData]="board.inProgress"
+                [cdkDropListConnectedTo]="[todoList, doneList]"
+                class="list"
+                (cdkDropListDropped)="drop('inProgress', $event)">
+                <p class="empty-label" *ngIf="board.inProgress.length === 0">Empty list</p>
+                <app-task *ngFor="let task of board.inProgress; let index = index" [task]="task" (update)="updateTask('inProgress', index, $event)" cdkDrag></app-task>
+            </mat-card>
+        </div>
+
+        <div class="container">
+            <h2>Done</h2>
+
+            <mat-card
+                id="cdk-drop-list-done"
+                cdkDropList
+                #doneList="cdkDropList"
+                [cdkDropListData]="board.done"
+                [cdkDropListConnectedTo]="[todoList, inProgressList]"
+                class="list"
+                (cdkDropListDropped)="drop('done', $event)">
+                <p class="empty-label" *ngIf="board.done.length === 0">Empty list</p>
+                <app-task *ngFor="let task of board.done; let index = index" [task]="task" (update)="updateTask('done', index, $event)" cdkDrag></app-task>
+            </mat-card>
+        </div>
+    </div>
+    <div class="actions-wrapper">
+        <button mat-fab color="primary" (click)="createTask()" title="Create Task">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fire-kanban-c6285": {
+      "hosting": {
+        "fire-kanban": [
+          "fire-kanban-c6285"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fire-kanban-c6285"
+  }
+}

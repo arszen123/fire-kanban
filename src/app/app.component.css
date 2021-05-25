@@ -1,0 +1,8 @@
+.login-container {
+    height: 100%;
+    display: grid;
+    width: 50%;
+    margin: auto;
+    grid-gap: 10px;
+    padding-top: 100px;
+}

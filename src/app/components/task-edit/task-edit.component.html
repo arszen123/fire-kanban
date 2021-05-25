@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{ data.isNew ? 'Create new' : 'Edit' }} task</h1>
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" cdkFocusInitial>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="form.value" [disabled]="!isValid()">Save</button>
+</div>

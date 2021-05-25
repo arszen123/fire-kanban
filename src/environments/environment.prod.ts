@@ -2,5 +2,5 @@ import * as FIREBASE_CONFIG from '../firebase-config.json';
 
 export const environment = {
   production: true,
-  firebaseConfig: FIREBASE_CONFIG,
+  firebaseConfig: (FIREBASE_CONFIG as any).default.result.sdkConfig,
 };

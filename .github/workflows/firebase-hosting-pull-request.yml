@@ -8,16 +8,24 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - uses: w9jds/firebase-action@master
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+      - name: Install application dependencies
+        run: npm install
+      - name: Install Cloud Functions dependencies
+        run: npm install
+        working-directory: functions
+      - name: Create src/firebase-config.json
+        uses: w9jds/firebase-action@master
         with:
           args: apps:sdkconfig web --json > src/firebase-config.json
         env:
           GCP_SA_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIRE_KANBAN_C6285 }}'
           projectId: fire-kanban-c6285
-      - run: npm run build
-      - uses: w9jds/firebase-action@master
+      - name: Build applicaiton
+        run: npm run build
+      - name: Deploy application
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions,firestore,hosting
         env:
